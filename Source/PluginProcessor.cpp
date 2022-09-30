@@ -166,21 +166,56 @@ bool DigiCompressorAudioProcessor::hasEditor() const
 
 juce::AudioProcessorEditor* DigiCompressorAudioProcessor::createEditor()
 {
-    return new DigiCompressorAudioProcessorEditor (*this);
+    return new juce::GenericAudioProcessorEditor(*this);
 }
 
 //==============================================================================
 void DigiCompressorAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+    juce::MemoryOutputStream memout(destData, true);
+    apvts.state.writeToStream(memout);
 }
 
 void DigiCompressorAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+    auto tree = juce::ValueTree::readFromData(data, sizeInBytes);
+    if (tree.isValid())
+    {
+        apvts.replaceState(tree);
+    }
+}
+
+juce::AudioProcessorValueTreeState::ParameterLayout DigiCompressorAudioProcessor::createParameterLayout()
+{
+    APVTS::ParameterLayout layout;
+    
+    using namespace juce;
+    auto attackReleaseRange = NormalisableRange<float>(5, 500, 1, 1);
+
+    // THRESHOLD
+    layout.add(std::make_unique<AudioParameterFloat>("Threshold", "Threshold", 
+                                                      NormalisableRange<float>(-60, +12, 1, 1), 0));
+    
+    // ATTACK
+    
+    layout.add(std::make_unique<AudioParameterFloat>("Attack", "Attack",
+                                                      attackReleaseRange, 50));
+
+    // RELEASE
+    layout.add(std::make_unique<AudioParameterFloat>("Release", "Release",
+                                                      attackReleaseRange, 250));
+
+    // RATIO (declare choices then add to string array)
+    auto choices = std::vector<double>{ 1, 1.5, 2, 2.5, 3, 4, 5, 6, 7, 8, 10, 15, 25, 50, 100 }; // 15 steps
+    juce::StringArray ratio;
+    for (auto choice : choices)
+    {
+        ratio.add(juce::String(choice, 1));
+    }
+    layout.add(std::make_unique<AudioParameterChoice>("Ratio", "Ratio",
+                                                       ratio, 2.5));
+
+    return layout;
 }
 
 //==============================================================================
