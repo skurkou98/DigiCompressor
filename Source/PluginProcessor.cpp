@@ -22,16 +22,16 @@ DigiCompressorAudioProcessor::DigiCompressorAudioProcessor()
                        )
 #endif
 {
-    attack = dynamic_cast<juce::AudioParameterFloat*>(apvts.getParameter("Attack"));
-    jassert(attack != nullptr);
-    release = dynamic_cast<juce::AudioParameterFloat*>(apvts.getParameter("Release"));
-    jassert(release != nullptr);
-    threshold = dynamic_cast<juce::AudioParameterFloat*>(apvts.getParameter("Threshold"));
-    jassert(threshold != nullptr);
-    ratio = dynamic_cast<juce::AudioParameterChoice*>(apvts.getParameter("Ratio"));
-    jassert(ratio != nullptr);
-    bypass = dynamic_cast<juce::AudioParameterBool*>(apvts.getParameter("Bypass"));
-    jassert(bypass != nullptr);
+    compressor.attack = dynamic_cast<juce::AudioParameterFloat*>(apvts.getParameter("Attack"));
+    jassert(compressor.attack != nullptr);
+    compressor.release = dynamic_cast<juce::AudioParameterFloat*>(apvts.getParameter("Release"));
+    jassert(compressor.release != nullptr);
+    compressor.threshold = dynamic_cast<juce::AudioParameterFloat*>(apvts.getParameter("Threshold"));
+    jassert(compressor.threshold != nullptr);
+    compressor.ratio = dynamic_cast<juce::AudioParameterChoice*>(apvts.getParameter("Ratio"));
+    jassert(compressor.ratio != nullptr);
+    compressor.bypass = dynamic_cast<juce::AudioParameterBool*>(apvts.getParameter("Bypass"));
+    jassert(compressor.bypass != nullptr);
 }
 
 DigiCompressorAudioProcessor::~DigiCompressorAudioProcessor()
@@ -158,20 +158,22 @@ void DigiCompressorAudioProcessor::processBlock (juce::AudioBuffer<float>& buffe
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    // Create a reference to get float from declared parameters here..
-    compressor.setAttack(attack->get());
-    compressor.setRelease(release->get());
-    compressor.setThreshold(release->get());
-    compressor.setRatio(ratio->getCurrentChoiceName().getFloatValue());
+    //// Create a reference to get float from declared parameters here..
+    //compressor.setAttack(attack->get());
+    //compressor.setRelease(release->get());
+    //compressor.setThreshold(release->get());
+    //compressor.setRatio(ratio->getCurrentChoiceName().getFloatValue());
 
-    // Passing the signal through blocks..
-    auto block = juce::dsp::AudioBlock<float>(buffer);
-    auto context = juce::dsp::ProcessContextReplacing<float>(block);
+    //// Passing the signal through blocks..
+    //auto block = juce::dsp::AudioBlock<float>(buffer);
+    //auto context = juce::dsp::ProcessContextReplacing<float>(block);
 
-    // Enable bypassing function here..
-    context.isBypassed = bypass->get();
+    //// Enable bypassing function here..
+    //context.isBypassed = bypass->get();
 
-    compressor.process(context);
+    //compressor.process(context);
+    compressor.updateCompressorSettings();
+    compressor.process(buffer);
 }
 
 //==============================================================================
