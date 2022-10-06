@@ -6,6 +6,19 @@
   ==============================================================================
 */
 
+/* 
+***ISSUE: Generic Editor (UI) does not process the input audio***
+Possible causes:
+1) Parameters are not properly linked to Generic Editor (UI issue).
+2) PrepareToPlay and/or ProcessBlock not properly processing blocks and/or input audio.
+3) Undeclared sampling rate and/or buffer size?
+4) Improper channel configuration?
+5) Bypass sending true indefinitely.
+Possible solutions:
+1) Changed editor classes to reference GenericAudioProcessorEditor. (NOT WORKING)
+2) Commented out 'bypass' parameter. (NOT WORKING)
+*/
+
 #pragma once
 
 #include <JuceHeader.h>

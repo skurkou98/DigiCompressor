@@ -236,7 +236,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout DigiCompressorAudioProcessor
 
     // BYPASS
     layout.add(std::make_unique<AudioParameterBool>("Bypass", "Bypass", 
-                                                       false));
+                                                     false));
 
     return layout;
 }
