@@ -40,7 +40,7 @@ struct CompressorBand
     {
         compressor.setAttack(attack->get());
         compressor.setRelease(release->get());
-        compressor.setThreshold(release->get());
+        compressor.setThreshold(threshold->get());
         compressor.setRatio(ratio->getCurrentChoiceName().getFloatValue());
     }
 
