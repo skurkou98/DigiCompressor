@@ -23,6 +23,7 @@ Possible solutions:
 
 #include <JuceHeader.h>
 
+// Declare the multiband parameters here, must be expanded to account for 3 bands..
 struct CompressorBand
 {
     juce::AudioParameterFloat* attack{ nullptr };
