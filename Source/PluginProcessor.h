@@ -7,16 +7,19 @@
 */
 
 /* 
-***ISSUE: Generic Editor does not process the input audio***
+***ISSUE: Input signal not being affected by compressor***
 Possible causes:
-1) Parameters are not properly linked to Generic Editor (UI issue).
-2) PrepareToPlay and/or ProcessBlock not properly processing blocks and/or input audio.
+1) PARAMETERS NOT PROPERLY REFERENCED WITH UI?
+2) PrepareToPlay and/or ProcessBlock not properly processing blocks and/or input signal?
 3) Undeclared sampling rate and/or buffer size?
 4) Improper channel configuration?
 5) Bypass sending true indefinitely.
 Possible solutions:
-1) Changed editor classes to reference GenericAudioProcessorEditor. (NOT WORKING)
-2) Commented out 'bypass' parameter. (NOT WORKING)
+1) Changed editor classes to reference GenericAudioProcessorEditor.
+2) Commented out 'bypass' parameter.
+3) USED BREAKPOINTS AND DEBUGGER TO READ VALUES STORED IN PARAMETERS, FOUND THRESHOLD INCORRECTLY REFERENCING RELEASE VALUE. (LINE 44 - PP.h)
+Outcome:
+!!!RESOLVED!!!
 */
 
 #pragma once
