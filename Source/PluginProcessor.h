@@ -7,7 +7,7 @@
 */
 
 /* 
-***ISSUE: Generic Editor (UI) does not process the input audio***
+***ISSUE: Generic Editor does not process the input audio***
 Possible causes:
 1) Parameters are not properly linked to Generic Editor (UI issue).
 2) PrepareToPlay and/or ProcessBlock not properly processing blocks and/or input audio.
