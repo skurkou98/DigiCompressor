@@ -1,8 +1,7 @@
 "DigiCompressor" plugin by Stanislau Kurkou
 
-This plugin was built in Visual Studio (2019) using JUCE library code. The goal of this project is to build a multiband 
-compressor with traditional controls split into 3 distinct adjustable bands. Currently, only the processing of JUCE's 
-compression algorithm has been implemented with the following controls:
+This plugin was built in Visual Studio (2019) using JUCE library code. The compression algorithm has been implemented with the 
+following controls:
 -ATTACK: How quickly DigiCompressor begins reducing gain after input signal goes above THRESHOLD. (5-500ms)
 -RELEASE: How quickly DigiCompressor stops reducing gain after input signal goes below THRESHOLD. (5-500ms)
 -THRESHOLD: Level at which DigiCompressor will reduce gain on the input signal. (-dB)
